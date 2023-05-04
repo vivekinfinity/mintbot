@@ -15,11 +15,20 @@ const data = new SlashCommandBuilder()
       .setRequired(true)
   );
 
+function isValidAddress(address: string): boolean {
+  return /^0x[a-fA-F0-9]{40}$/.test(address);
+}
 async function execute(interaction: CommandInteraction) {
   const address = interaction.options.get("address")?.value as string;
 
   console.log(`Minting tokens for address: ${address}`);
 
+  if (!isValidAddress(address)) {
+    await interaction.reply(
+      "Invalid Ethereum address. Please provide a correct address."
+    );
+    return;
+  }
   try {
     const amount = TOKEN_AMOUNT;
     provider.send("ic_mintEVMToken", [address, amount]);
