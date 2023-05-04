@@ -1,12 +1,14 @@
+import * as dotenv from "dotenv";
+dotenv.config();
 import { REST, Routes } from "discord.js";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
-import config from "../config.json" assert { type: "json" };
 
 const commands = [];
 
 const currentFilePath = fileURLToPath(import.meta.url);
+
 const currentDirname = path.dirname(currentFilePath);
 const foldersPath = path.join(currentDirname, "commands");
 
@@ -25,7 +27,7 @@ for (const file of commandFiles) {
   }
 }
 
-const rest = new REST().setToken(config.token);
+const rest = new REST().setToken(process.env.BOT_TOKEN);
 
 (async () => {
   try {
@@ -34,7 +36,10 @@ const rest = new REST().setToken(config.token);
     );
 
     const data = await rest.put(
-      Routes.applicationGuildCommands(config.clientId, config.guildId),
+      Routes.applicationGuildCommands(
+        process.env.BOT_CLIENT_ID,
+        process.env.BOT_GUILD_ID
+      ),
       {
         body: commands,
       }

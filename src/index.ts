@@ -1,3 +1,5 @@
+import * as dotenv from "dotenv";
+dotenv.config();
 import fs from "fs";
 import path from "path";
 import {
@@ -7,7 +9,6 @@ import {
   Events,
   GatewayIntentBits,
 } from "discord.js";
-import config from "../config.json" assert { type: "json" };
 import { fileURLToPath } from "url";
 const client: any = new Client({ intents: [GatewayIntentBits.Guilds] });
 
@@ -32,7 +33,7 @@ for (const file of commandFiles) {
 }
 
 client.once(Events.ClientReady, () => {
-  console.log("Ready!");
+  console.log("Client is ready!");
 });
 
 client.on(Events.InteractionCreate, async (interaction: CommandInteraction) => {
@@ -60,6 +61,6 @@ client.on(Events.InteractionCreate, async (interaction: CommandInteraction) => {
   }
 });
 
-client.login(config.token);
+client.login(process.env.BOT_TOKEN);
 
 export default client;
