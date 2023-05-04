@@ -1,0 +1,32 @@
+{
+  "name": "mintbot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc && mv api/server.js api/server.mjs",
+    "start": "ts-node src/index.ts",
+    "deploy-commands": "ts-node src/deploy-commands.ts"
+  },
+  "keywords": [],
+  "type": "module",
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/cors": "^2.8.13",
+    "@types/express": "^4.17.17",
+    "@types/node": "^18.16.1",
+    "@typescript-eslint/eslint-plugin": "^5.59.1",
+    "@typescript-eslint/parser": "^5.59.1",
+    "eslint": "^8.39.0",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.0.4"
+  },
+  "dependencies": {
+    "@ethersproject/providers": "^5.7.2",
+    "cors": "^2.8.5",
+    "discord.js": "^14.9.0",
+    "express": "^4.18.2"
+  }
+}
