@@ -62,3 +62,13 @@ jobs:
         run: |
           git tag v${{ steps.minor.outputs.MINOR }} -a -m "Generated tag from GitHub Action"
           git push origin --tags
+
+      - name: Create Release
+        id: create_release
+        uses: softprops/action-gh-release@v1
+        with:
+          token: ${{ secrets.GH_PAT }}
+          name: Release v${{ steps.minor.outputs.MINOR }}
+          tag_name: v${{ steps.minor.outputs.MINOR }}
+          draft: false
+          prerelease: false
