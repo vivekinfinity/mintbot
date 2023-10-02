@@ -12,10 +12,10 @@ jobs:
 
       - name: Delete all tags
         run: |
-          curl -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+          curl -H "Authorization: token ${{ secrets.GH_PAT }}" \
             -X GET "https://api.github.com/repos/${{ github.repository }}/tags" \
             | jq -r '.[].name' | while read -r tagname ; do
               echo "Deleting tag $tagname"
-              curl -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+              curl -H "Authorization: token ${{ secrets.GH_PAT }}" \
                 -X DELETE "https://api.github.com/repos/${{ github.repository }}/git/refs/tags/$tagname"
           done
