@@ -4,8 +4,6 @@ on:
   push:
     branches:
       - main
-    paths-ignore:
-      - "**[ci skip]**"
   workflow_dispatch:
 
 concurrency:
@@ -19,6 +17,7 @@ permissions:
 
 jobs:
   build:
+    if: ${{ github.actor != 'github-actions[bot]' }}
     runs-on: ubuntu-latest
 
     steps:
