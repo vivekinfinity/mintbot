@@ -48,16 +48,22 @@ jobs:
           echo "Updating package.json to version ${{ steps.minor.outputs.MINOR }}"
           npm version ${{ steps.minor.outputs.MINOR }} --no-git-tag-version
 
-      - name: Set up Git user
+      - name: Stash changes
+        run: git stash
+
+      - name: Pull and rebase
         run: |
           git config --global user.email "actions@github.com"
           git config --global user.name "GitHub Action"
+          git pull --rebase
+
+      - name: Apply stash
+        run: git stash pop
 
       - name: Commit the new version
         run: |
           git config --global user.email "actions@github.com"
           git config --global user.name "GitHub Action"
-          git pull --rebase
           git commit -am "Bump version to ${{ steps.minor.outputs.MINOR }}"
           git push
 
